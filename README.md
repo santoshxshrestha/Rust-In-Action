@@ -13,15 +13,10 @@ This repository contains code examples and experiments based on the **Rust by Ex
 - To improve coding skills by experimenting with different Rust patterns, libraries, and tools.
 - To track my progress and create a portfolio of mini Rust projects.
 
-## Structure
-
-- `examples/`: Contains various Rust examples, each corresponding to a chapter or topic from the book.
-- `projects/`: Mini-projects that showcase the concepts learned.
-- `snippets/`: Short code snippets demonstrating specific Rust features and patterns.
-
 ## How to use this repository
 
 1. Clone this repository to your local machine:
 
    ```bash
    git clone https://github.com/SantoshShrestha11/Rust-In-Action.git
+   ```
