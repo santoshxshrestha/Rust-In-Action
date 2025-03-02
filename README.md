@@ -24,4 +24,4 @@ This repository contains code examples and experiments based on the **Rust by Ex
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/santoshshrestha11/rust-by-example-learning.git
+   git clone https://github.com/SantoshShrestha11/Rust-In-Action.git
