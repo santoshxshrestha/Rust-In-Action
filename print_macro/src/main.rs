@@ -66,7 +66,7 @@ fn main() {
 
     {
         let pi = 3.141592;
-        println!("{pi}");
+        println!("pi is roughly {pi:.3}");
         //here e is the format specifier for scientific notation
         println!("{pi:e}");
     }
@@ -100,5 +100,10 @@ fn main() {
         let y: u64 = 13491649131956916;
         let typy = type_of(y);
         println!("{typy}");
+    }
+    {
+        println!("Here the val of the x is :{:>1$}", "santosh", 20);
+        //you can see the difference here
+        println!("Here the val of the x is :{:1$}!", "santosh", 20);
     }
 }
