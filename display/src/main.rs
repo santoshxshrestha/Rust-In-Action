@@ -54,6 +54,7 @@ fn main() {
         println!("Debug: {:?}", point);
     }
 
+    // activity
     {
         #[derive(Debug)]
         struct Complex {
