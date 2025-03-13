@@ -19,4 +19,14 @@ fn main() {
         println!("my array is {:#?}", my_array);
         println!("my tuple is {:#?}", my_tupul);
     }
+    {
+        //enotation
+        let val1 = 2e-20;
+
+        let val2 = 2e20;
+        let val3 = 2E20;
+        println!("the val1 is {val1}");
+        println!("the val2 is {val2}");
+        println!("the val3 is {val3}");
+    }
 }
