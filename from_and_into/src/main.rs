@@ -1,4 +1,6 @@
+#![allow(dead_code)]
 use std::convert::From;
+use std::convert::Into;
 
 #[derive(Debug)]
 struct Number {
@@ -11,7 +13,20 @@ impl From<i32> for Number {
     }
 }
 
+#[derive(Debug)]
+struct Another {
+    value: i64,
+}
+impl Into<Another> for i64 {
+    fn into(self) -> Another {
+        Another { value: self }
+    }
+}
 fn main() {
-    let num = Number::from(30);
+    let num1 = Number::from(30);
+    println!("My number is {:?}", num1);
+
+    let num2 = 5i64;
+    let num: Another = num2.into();
     println!("My number is {:?}", num);
 }
