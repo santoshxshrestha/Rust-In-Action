@@ -18,7 +18,7 @@ fn rect_area(rectangle: Rectangle) -> f32 {
         top_left: Point { x: x1, y: y1 },
         bottom_right: Point { x: x2, y: y2 },
     } = rectangle;
-    let calculation = { ((x2 - x1) * (y2 - y1)).abs() };
+    let calculation: f32 = { ((x2 - x1) * (y2 - y1)).abs() };
     calculation
 }
 
@@ -27,7 +27,7 @@ fn square(square1: Square) -> (Rectangle, f32, f32) {
         point: Point { x, y },
         length,
     } = square1;
-    let rectangle = Rectangle {
+    let rectangle: Rectangle = Rectangle {
         top_left: Point {
             x: x - length,
             y: y - length,
@@ -36,7 +36,7 @@ fn square(square1: Square) -> (Rectangle, f32, f32) {
     };    (rectangle, length, length)
 }
 fn main() {
-    let rectangle = Rectangle {
+    let rectangle: Rectangle = Rectangle {
         top_left: Point { x: 5.2, y: 0.4 },
         bottom_right: Point { x: 10.3, y: 0.2 },
     };
