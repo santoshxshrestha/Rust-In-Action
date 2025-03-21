@@ -38,4 +38,18 @@ fn main() {
     //slice of array for funtion
     let array: [i32; 10] = [1, 41, 41, 14, 151, 231, 2512, 31, 52, 31];
     slice_fn(&array[1..6]);
+
+    {
+        let array = ["Anil", "Kumar", "Rohit", "Diwas", "Hair", "Santosh"];
+        match array {
+            [other @ .., "Santosh"] => {
+                println!(
+                    "Here is the rustacean: {} and other are {:?}",
+                    array[(array.len()) - 1],
+                    other,
+                )
+            }
+            _ => println!("No rustacean found"),
+        }
+    }
 }
