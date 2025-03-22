@@ -1,4 +1,5 @@
 fn main() {
+
     println!("1 + 2 = {}", 1u32 + 2);
     //this line doesn't works but the line above will work becaue of the rust infers the 2 as u32
     //above
