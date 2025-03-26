@@ -18,6 +18,7 @@ impl fmt::Display for List {
         write!(f, "]")
     }
 }
+
 fn main() {
     let vector = List(vec![1, 4, 54, 5, 1, 4]);
     println!("{}", vector);

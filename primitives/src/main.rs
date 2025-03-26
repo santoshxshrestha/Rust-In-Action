@@ -27,6 +27,5 @@ fn main() {
         let val3 = 2E20;
         println!("the val1 is {val1}");
         println!("the val2 is {val2}");
-        println!("the val3 is {val3}");
-    }
+        println!("the val3 is {val3}");}
 }
