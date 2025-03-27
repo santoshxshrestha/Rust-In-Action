@@ -4,6 +4,7 @@ fn slice_fn(array: &[i32]) {
         "The second element of the slice of array in fn is: {}",
         array[1]
     );
+
 }
 
 fn main() {
