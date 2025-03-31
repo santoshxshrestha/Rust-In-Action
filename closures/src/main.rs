@@ -1,5 +1,5 @@
 #![allow(unused)]
-use std::{mem, vec};
+use std::mem;
 
 //so we can use this this to apply the 
 //closure just once and drop the val or transfer the ownership out
@@ -14,6 +14,21 @@ F:FnOnce() {
 fn apply_to_4<F>(f:F) -> i32 where
 F:Fn(i32) -> i32 {
     f(4)
+}
+
+fn  apply_mut<F>(mut f:F) where 
+F: FnMut(),
+{
+    f();
+}
+
+fn apply_fn<F>(f:F)where 
+F:Fn(){
+    f();
+    f();
+    f();
+    f();
+    f();
 }
 
 
@@ -78,5 +93,27 @@ fn main() {
         let triple = |x| 3*x;
         println!("4 is tripled : {}", apply_to_4(triple));
 
+    }
+
+
+    //lets go with the mutable closures here 
+    {
+        let mut count = 0 ;
+        let mut counter_increment = ||{
+            count += 1;
+            println!("count: {}", count);
+        };
+        apply_mut(&mut counter_increment);
+        apply_mut(&mut counter_increment);
+        apply_mut(&mut counter_increment);
+        apply_mut(&mut counter_increment);
+        
+    }
+
+    //lets go with the last one here which is called Fn
+    {
+        let greeting = String::from("hello santosh");
+        let say_hello = || println!("{}", greeting);
+        apply_fn(say_hello);
     }
 }
