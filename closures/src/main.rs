@@ -9,6 +9,8 @@ F:FnOnce() {
     f();
 }
 
+//these things are called the higher order functions
+//because they take function (or closure ) as an arguments 
 fn apply_to_4<F>(f:F) -> i32 where
 F:Fn(i32) -> i32 {
     f(4)
