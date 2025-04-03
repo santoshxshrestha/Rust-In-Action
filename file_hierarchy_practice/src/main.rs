@@ -1,42 +1,14 @@
-// ====================================================
-// Extended Rust Practice Code for File Hierarchy Demo
-// ====================================================
-//
-// This file includes multiple modules and functionalities:
-// - Shapes: Circle, Rectangle, Triangle with area and perimeter calculations.
-// - Drawing: Trait for drawable shapes and functions to draw them.
-// - Utils: Utility functions for logging and messaging.
-// - Additional loops and logging for extended practice.
-//
-// Later, you can refactor this into separate files and directories
-// (e.g., moving shapes into a `shapes/` folder, drawing into `drawing/`,
-// and utils into `utils/`).
-
-// ========================
-// Module: Shapes
-// ========================
-mod shapes;
-
-// ========================
-// Module: Drawing
-// ========================
-mod drawing;
-
-// ========================
-// Module: Utils
-// ========================
-mod utils;
-
 // ========================
 // Main Function
 // ========================
 fn main() {
     // Import necessary items from modules
-    use shapes::circle::Circle;
-    use shapes::rectangle::Rectangle;
-    use shapes::triangle::Triangle;
-    use drawing::{draw_shape, draw_multiple};
-    use utils::{print_message, log_info, log_error, simulate_delay};
+    use file_hierarchy_practice::*;
+    use file_hierarchy_practice::shapes::circle::Circle;
+    use file_hierarchy_practice::shapes::rectangle::Rectangle;
+    use file_hierarchy_practice::shapes::triangle::Triangle;
+    use file_hierarchy_practice::drawing::{draw_shape, draw_multiple};
+    use file_hierarchy_practice::utils::{print_message, log_info, log_error, simulate_delay};
 
     // Create instances of shapes using constructors
     let circle1 = Circle::new(7.0);
