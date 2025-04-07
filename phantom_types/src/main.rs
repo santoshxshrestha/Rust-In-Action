@@ -1,4 +1,4 @@
-use std::marker::PhantomData;
+use std::{alloc, marker::PhantomData};
 struct USD;
 struct EUR;
 
@@ -17,6 +17,7 @@ fn euros(amount: f64) -> Money<EUR> {
     Money { amount, _phantom: PhantomData}
 }
 
+#[allow(dead_code)]
 impl<C> Money<C> {
     fn add(self, other: Money<C>) -> Money<C> {
         Money { amount: self.amount + other.amount,
