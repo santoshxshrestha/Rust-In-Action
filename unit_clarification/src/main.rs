@@ -9,36 +9,46 @@
 //     fn add(self, rhs: RHS) -> Output;
 // }
 
-use std::ops::Add;
+
+
+// pub trait Add<RHS = Self, Output = Self> {
+//     fn add(self, rhs: RHS ) -> Output;
+// }
+
+
+#![allow(unused)]
 use std::marker::PhantomData;
+use std::ops::Add;
 
-// Unit marker types
 #[derive(Debug)]
-enum Inch {}
+struct Meters;
+struct Kilometers;
 
-enum Mm {} // millimeter
-
-// Generic Length type with phantom data for units
 #[derive(Debug)]
-struct Length<Unit>(f64, PhantomData<Unit>);
+struct Quantity<Unit> {
+    value: f64,
+    _unit: PhantomData<Unit>,
+}
 
-// Implement Add for same units
-impl<Unit> Add for Length<Unit> {
-    type Output = Length<Unit>;
+impl<Unit> Add for Quantity<Unit> {
+    type Output = Quantity<Unit>;
 
-    fn add(self, rhs: Length<Unit>) -> Length<Unit> {
-        Length(self.0 + rhs.0, PhantomData)
+    fn add(self, rhs: Quantity<Unit>) -> Quantity<Unit> {
+        Quantity { value: self.value+ rhs.value,
+            _unit: PhantomData,
+             }
     }
 }
 
 fn main() {
-    let length1 = Length::<Inch>(5.0, PhantomData);
-    let length2 = Length::<Inch>(3.0, PhantomData);
-    let total = length1 + length2;
-    println!("Total length in inches: {:?}", total);
+    let dist1 = Quantity::<Meters> { value: 100.0, _unit: PhantomData };
+    let dist2 = Quantity::<Meters> { value: 50.0, _unit: PhantomData };
 
-    // Uncommenting the lines below would give a compile-time error
-    // let length_mm = Length::<Mm>(10.0, PhantomData);
-    // let invalid = length1 + length_mm;
+    let total = dist1 + dist2;
+    println!("Total distance in meters: {:?}", total);
+
+    let km1 = Quantity::<Kilometers> { value: 2.0, _unit: PhantomData };
+    
+    // This line will NOT compile (unit mismatch)
+    // let error = dist1 + km1;
 }
-
