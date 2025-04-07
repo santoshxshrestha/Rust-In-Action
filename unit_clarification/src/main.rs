@@ -1,4 +1,3 @@
-use std::marker::PhantomData;
 // there are the variend that we hearned about till 
 // pub trait Add<RHS = Self> {
 //     type Output;
@@ -10,27 +9,36 @@ use std::marker::PhantomData;
 //     fn add(self, rhs: RHS) -> Output;
 // }
 
-pub trait Add<RHS = Self,Output  = Self > {
-    fn add(self, rhs: RHS) -> Output;
-}
+use std::ops::Add;
+use std::marker::PhantomData;
 
-impl <U>  Add for T<U> {
-    type Output = T<U>;
-}
-
+// Unit marker types
+#[derive(Debug)]
 enum Inch {}
-enum Mn {}
 
-struct Lenght<Unit>(f64, PhantomData<Unit>);
+enum Mm {} // millimeter
 
-impl <Unit> Add for Lenght<Unit> {
-    type Output = Lenght<Unit>;
+// Generic Length type with phantom data for units
+#[derive(Debug)]
+struct Length<Unit>(f64, PhantomData<Unit>);
 
-    fn add(self, rhs: Lenght<Unit>) -> Lenght<Unit> {
-        Lenght(self.0+ rhs.0, PhantomData)
+// Implement Add for same units
+impl<Unit> Add for Length<Unit> {
+    type Output = Length<Unit>;
+
+    fn add(self, rhs: Length<Unit>) -> Length<Unit> {
+        Length(self.0 + rhs.0, PhantomData)
     }
-    
 }
-fn main() {
 
+fn main() {
+    let length1 = Length::<Inch>(5.0, PhantomData);
+    let length2 = Length::<Inch>(3.0, PhantomData);
+    let total = length1 + length2;
+    println!("Total length in inches: {:?}", total);
+
+    // Uncommenting the lines below would give a compile-time error
+    // let length_mm = Length::<Mm>(10.0, PhantomData);
+    // let invalid = length1 + length_mm;
 }
+
