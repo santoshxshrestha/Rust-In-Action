@@ -34,7 +34,7 @@ impl<Unit> Add for Quantity<Unit> {
     type Output = Quantity<Unit>;
 
     fn add(self, rhs: Quantity<Unit>) -> Quantity<Unit> {
-        Quantity { value: self.value+ rhs.value,
+        Quantity { value: self.value + rhs.value,
             _unit: PhantomData,
              }
     }
