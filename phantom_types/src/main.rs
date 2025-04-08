@@ -1,4 +1,4 @@
-use std::{alloc, marker::PhantomData};
+use std::marker::PhantomData;
 struct USD;
 struct EUR;
 
