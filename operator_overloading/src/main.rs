@@ -2,6 +2,7 @@
 
 use std::ops::{Add, Sub};
 
+#[derive(Clone)]
 struct Vector2D {
     x: f64,
     y: f64,
@@ -51,9 +52,16 @@ impl Add<f64> for Vector2D {
 
 impl std::fmt::Display for Vector2D{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "({}, {}).",self.x, self.y)
+        write!(f, "({:.2}, {:.2}).",self.x, self.y)
     }
 
+}
+
+impl Drop for Vector2D{
+    fn drop(&mut self) {
+        println!("> Dropping the vector ({:.2}, {:.2}).",self.x, self.y);
+        println!();
+    }
 }
 
 
@@ -62,9 +70,14 @@ fn main() {
     let vector1 = Vector2D::new(30.43, 20.5);
     let vector2 = Vector2D::new(42.2,52.42);
 
-    let sum =vector1  + vector2 ;
+    let sum = vector1.clone() + vector2.clone();
     println!("The sum is {}",sum);
 
+    let difference = vector1.clone() - vector2.clone();
+    println!("The difference is {}",difference);
 
 
+    let scaled = vector1 + 5.0;
+    println!("The sum is {}",scaled);
+    
 }
