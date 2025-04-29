@@ -42,8 +42,8 @@ impl<'a> Customer<'a> {
         // }
         if self.age < 18 {
             match self.order {
-                Liquids::Beer => println!("Are you crazy boy you are just {} and ordering Beer",self.age),
-                Liquids::Vodka => println!("Hell nah! I am not giving Vodka to you , you are just a kid of {}",self.age),
+                Liquids::Beer => println!("Are you crazy boy you are just {} and ordering Beer.",self.age),
+                Liquids::Vodka => println!("Hell nah! I am not giving Vodka to you , you are just a kid of {}.",self.age),
                 _ =>  println!("Your order of {} is ready {}.",self.order, self.name),
             }
         }
@@ -64,8 +64,8 @@ fn main() {
         age: 21,
         order: Liquids::Beer,
     };
-
     kiran.serve();
+    println!();
 
     let kamal = Customer{
         name: "Kamal",
@@ -73,6 +73,7 @@ fn main() {
         order: Liquids::Water,
     };
     kamal.serve();
+    println!();
 
     let samip = Customer{
         name: "Samip",
@@ -80,7 +81,8 @@ fn main() {
         order: Liquids::Beer,
     };
     samip.serve();
-    //after the thread gets panicked the code will stop running 
+    println!();
+    //after the thread gets panicked the code will stop running if panic is runned
 
     let santosh = Customer{
         name: "Santosh",
@@ -88,4 +90,13 @@ fn main() {
         order: Liquids::Fanta,
     };
     santosh.serve();
+    println!();
+
+    let nahida = Customer {
+        name: "Nahida",
+        age: 8,
+        order: Liquids::Cocacola,
+    };
+    nahida.serve();
+    println!();
 }
