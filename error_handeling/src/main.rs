@@ -20,7 +20,7 @@ impl std::fmt::Display for Liquids {
             Liquids::Vodka => write!(f,"Vodka"),
         }
     }
-    
+
 }
 
 struct Customer<'a> {
@@ -34,9 +34,20 @@ impl<'a> Customer<'a> {
         Customer { name, age, order}
     }
     fn serve(&self) {
-        if self.age < 18 && (self.order == Liquids::Vodka || self.order == Liquids::Beer) {
-            panic!("sorry {}, you're too young for {}.", self.name, self.order);
-        }else{
+    
+        // if self.age < 18 && (self.order == Liquids::Vodka || self.order == Liquids::Beer) {
+        //     panic!("sorry {}, you're too young for {}.", self.name, self.order);
+        // }else{
+        //     println!("Your order of {} is ready {}.",self.order, self.name);
+        // }
+        if self.age < 18 {
+            match self.order {
+                Liquids::Beer => println!("Are you crazy boy you are just {} and ordering Beer",self.age),
+                Liquids::Vodka => println!("Hell nah! I am not giving Vodka to you , you are just a kid of {}",self.age),
+                _ =>  println!("Your order of {} is ready {}.",self.order, self.name),
+            }
+        }
+        else{
             println!("Your order of {} is ready {}.",self.order, self.name);
         }
 
