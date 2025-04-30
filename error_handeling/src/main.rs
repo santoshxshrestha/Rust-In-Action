@@ -33,13 +33,16 @@ impl<'a> Customer<'a> {
     fn new(name: &'a str, age: u8, order: Liquids) -> Self {
         Customer { name, age, order}
     }
-    fn serve(&self) {
-    
-        // if self.age < 18 && (self.order == Liquids::Vodka || self.order == Liquids::Beer) {
-        //     panic!("sorry {}, you're too young for {}.", self.name, self.order);
-        // }else{
-        //     println!("Your order of {} is ready {}.",self.order, self.name);
-        // }
+    fn serve_v1(&self) {
+
+        if self.age < 18 && (self.order == Liquids::Vodka || self.order == Liquids::Beer) {
+            panic!("sorry {}, you're too young for {}.", self.name, self.order);
+        }else{
+            println!("Your order of {} is ready {}.",self.order, self.name);
+        }
+    }
+
+    fn serve_v2(&self) {
         if self.age < 18 {
             match self.order {
                 Liquids::Beer => println!("Are you crazy boy you are just {} and ordering Beer.",self.age),
@@ -50,7 +53,12 @@ impl<'a> Customer<'a> {
         else{
             println!("Your order of {} is ready {}.",self.order, self.name);
         }
+    }
 
+    fn serve_v3(&self) {
+        if self.age<18 {
+            
+        }
     }
 
 
@@ -64,7 +72,7 @@ fn main() {
         age: 21,
         order: Liquids::Beer,
     };
-    kiran.serve();
+    kiran.serve_v1();
     println!();
 
     let kamal = Customer{
@@ -72,7 +80,7 @@ fn main() {
         age: 42,
         order: Liquids::Water,
     };
-    kamal.serve();
+    kamal.serve_v1();
     println!();
 
     let samip = Customer{
@@ -80,7 +88,7 @@ fn main() {
         age: 9,
         order: Liquids::Beer,
     };
-    samip.serve();
+    samip.serve_v1();
     println!();
     //after the thread gets panicked the code will stop running if panic is runned
 
@@ -89,7 +97,7 @@ fn main() {
         age: 20,
         order: Liquids::Fanta,
     };
-    santosh.serve();
+    santosh.serve_v1();
     println!();
 
     let nahida = Customer {
@@ -97,6 +105,6 @@ fn main() {
         age: 8,
         order: Liquids::Cocacola,
     };
-    nahida.serve();
+    nahida.serve_v1();
     println!();
 }
