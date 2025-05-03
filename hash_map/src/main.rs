@@ -133,6 +133,31 @@ fn example_case_insensative() {
     assert_eq!(s1, s3);
 }
 
+#[derive(Debug)]
+struct Book {
+    isbn: String, 
+    title: String,
+    author: String,
+    publication_year: u32,
+    price: f64,
+}
+
+impl PartialEq for Book{
+    fn eq(&self, other: &Self) -> bool {
+        self.isbn == other.isbn
+    }
+}
+
+impl Eq for Book{
+    
+}
+
+impl std::hash::Hash for Book {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.isbn.hash(state);
+    }
+}
+
 
 
 
@@ -140,6 +165,28 @@ fn main() {
     example_automatic();
     example_manual ();
     example_case_insensative();
+
+
+    //example with book
+    let book1 = Book{
+        isbn: "978-452525252".to_string(),
+        title: "Programming Rust, 2nd Edition".to_string(),
+        author: "Jim Blandy and Jason Orendorff".to_string(),
+        publication_year: 2017,
+        price: 99.99,
+    };
+
+    let book2 = Book{
+        isbn: "978-452525252".to_string(),
+        title: "Programming Rust".to_string(),
+        author: "Jim Blandy".to_string(),
+        publication_year: 2017,
+        price: 99.99,
+    };
+
+    //we are just checking the isbn number so it will work fine because we got the isbn number same 
+    //for the both books out there.
+    assert_eq!(book1, book2);
 
     {
 
