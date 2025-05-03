@@ -152,6 +152,8 @@ impl Eq for Book{
     
 }
 
+//you already know what the following block of the impl does 
+//and unlocks 
 impl std::hash::Hash for Book {
     fn hash<H: Hasher>(&self, state: &mut H) {
         self.isbn.hash(state);
