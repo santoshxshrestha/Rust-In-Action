@@ -1,4 +1,4 @@
-
+#![allow(dead_code)]
 use std::collections::HashMap;
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
@@ -74,11 +74,72 @@ fn example_manual () {
 
 }
 
+//not a way that you should always do but yah it is what it is 
+struct Vector3D {
+    x: f64,
+    y: f64,
+    z: f64,
+}
+ impl PartialEq for Vector3D {
+     fn eq(&self, other: &Self) -> bool {
+         (self.x - other.x).abs() < 1e-10 && 
+         (self.y - other.y).abs() < 1e-10 && 
+         (self.z - other.z).abs() < 1e-10 
+     }
+     
+ }
+
+impl std::hash::Hash for Vector3D {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        let x_bits = self.x.to_bits();
+        let y_bits = self.y.to_bits();
+        let z_bits = self.z.to_bits();
+
+        x_bits.hash(state);
+        y_bits.hash(state);
+        z_bits.hash(state);
+    }
+    
+}
+
+
+#[derive(Debug, Clone)]
+struct CaseInsensetiveString(String);
+
+impl PartialEq for CaseInsensetiveString{
+    fn eq(&self, other: &Self) -> bool {
+        self.0.to_lowercase() == other.0.to_lowercase()
+    }
+
+} 
+
+impl Eq for CaseInsensetiveString {
+
+}
+
+impl std::hash::Hash for CaseInsensetiveString{
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.0.to_lowercase().hash(state);
+    }
+}
+
+fn example_case_insensative() {
+
+    let s1 = CaseInsensetiveString("Hello".to_string());
+    let s2 = CaseInsensetiveString("HELLO".to_string());
+    let s3 = CaseInsensetiveString("hello".to_string());
+    assert_eq!(s1, s2);
+    assert_eq!(s2, s3);
+    assert_eq!(s1, s3);
+}
+
+
 
 
 fn main() {
     example_automatic();
     example_manual ();
+    example_case_insensative();
 
     {
 
