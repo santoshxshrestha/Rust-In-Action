@@ -30,5 +30,21 @@ fn main() {
     background_thread.join().unwrap();
 
     println!("Main thread: All done!");
+ 
 
+    println!("---------------------------------------------------------------------");
+
+    {
+        let mut children = vec![];
+        for i in 0..10{
+            //here the thread is sored in the vector
+            children.push(thread::spawn(move || {
+                println!("this is the spawned thread of number {}",i);
+            }));
+        }
+        for child in children {
+            let _ = child.join().expect("could not join the thread");
+        }
+
+    }
 }
