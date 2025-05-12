@@ -1,6 +1,6 @@
 #![allow(unused)]
 use std::fs::File;
-use std::io::prelude::*;
+use std::io::{self, prelude::*};
 use std::panic;
 use std::path::Path;
 use std::fs::read_to_string;
@@ -87,6 +87,22 @@ fn main() {
         let lines = read_lines("hello.txt");
         for line in lines {
             println!("{line}");
+        }
+    }
+    println!("----------------------------------------------------------------");
+    
+    {
+        if let Ok(lines) = read_lines("./hosts.txt"){
+            for line in lines.map_while(Result::ok){
+                println!("{}",line)
+            }
+        }
+
+        fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
+            where P: AsRef<Path> {
+                let file = File::open(filename)?;
+                Ok(io::BufReader::new(file).lines())
+                
         }
     }
 }
