@@ -3,6 +3,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::panic;
 use std::path::Path;
+use std::fs::read_to_string;
 
 static LOREM_IPSUM: &str =
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -51,6 +52,41 @@ fn main() {
         match file.write_all(LOREM_IPSUM.as_bytes()) {
             Err(why) => panic!("couldn't write to {}: {}", display, why),
             Ok(_) => println!("successfully wrote to {}",display),
+        }
+    }
+
+    println!("----------------------------------------------------------------");
+
+    {
+        fn read_lines(filename: &str) -> Vec<String> {
+            let mut result = Vec::new() ;
+
+            for line in read_to_string(filename).unwrap().lines(){
+                result.push(line.to_string())
+            }
+
+            return result;
+        }
+
+        fn read_lines_better(filename: &str) -> Vec<String>{
+            read_to_string(filename)
+                .unwrap()
+                .lines()
+                .map(String::from)
+                // .map(|s| s.to_string())
+                .collect()
+        }
+
+        let lines = read_lines_better("hello.txt");
+        for line in lines {
+            println!("{line}");
+        }
+
+
+        println!("----------------------------------------------------------------");
+        let lines = read_lines("hello.txt");
+        for line in lines {
+            println!("{line}");
         }
     }
 }
