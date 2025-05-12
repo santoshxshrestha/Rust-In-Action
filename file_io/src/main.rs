@@ -93,6 +93,7 @@ fn main() {
     
     {
         if let Ok(lines) = read_lines("./hosts.txt"){
+            // Similar to map(), but stops iterating when the mapping function returns None
             for line in lines.map_while(Result::ok){
                 println!("{}",line)
             }
