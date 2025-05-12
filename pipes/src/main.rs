@@ -11,6 +11,8 @@ fn main() {
         cmd.arg("-Command").arg("$input | Measure-Object -Line -Word -Character");
         cmd
     }else {
+        //here wc command reads input from stdin or file and then counts 
+        //lines  words bytes or character
         Command::new("wc")
     };
     let  process = match cmd
