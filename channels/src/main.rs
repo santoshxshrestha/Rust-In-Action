@@ -8,7 +8,9 @@ static NTHREADS: i32 = 3;
 
 
 fn main() {
-    let (tx, rx): (Sender<i32>, Receiver<i32>) = mpsc::channel();
+// In summary, SyncSender is a version of Sender that uses synchronization to ensure that the sender blocks if the receiver isn't ready to consume messages,
+// giving you fine control over communication flow between threads.
+    let (tx, rx): (Sender<i32>, Receiver<i32>)  = mpsc::channel();
     let mut children = Vec::new();
 
     for id in 0..NTHREADS {
