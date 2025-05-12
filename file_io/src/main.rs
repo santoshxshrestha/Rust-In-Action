@@ -38,6 +38,8 @@ fn main() {
     println!("----------------------------------------------------------------");
 
     {
+        //the following mode will create a file if there is not any and rewrites if 
+        //there is not any
         let path = Path::new("write.txt");
         let display = path.display();
 
