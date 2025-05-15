@@ -20,6 +20,7 @@ fn main() {
 
         unsafe {
             let my_slice: &[u32] = slice::from_raw_parts(pointer, length);
+            //slice give the pointer to the first element and the lenght of the data 
 
             assert_eq!(some_vector.as_slice(), my_slice);
         }
