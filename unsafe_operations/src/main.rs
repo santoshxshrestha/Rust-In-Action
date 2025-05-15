@@ -20,9 +20,15 @@ fn main() {
 
         unsafe {
             let my_slice: &[u32] = slice::from_raw_parts(pointer, length);
+            println!("The val of the pointer is {:?}",pointer);
+            println!("The lenght of the vec is {}",length);
             //slice give the pointer to the first element and the lenght of the data 
 
             assert_eq!(some_vector.as_slice(), my_slice);
+            let data = some_vector.as_slice();
+
+            //here both points of the data are the same point 
+            println!("The content of the data are pointer of the first content: {:p} and the length of the content :{}", data,data.len());
         }
     }
 }
