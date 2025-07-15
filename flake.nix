@@ -19,12 +19,6 @@
         # gcc
         # pkg-config
       ];
-
-      shellHook = ''
-        echo "🦀 Welcome to the Rust dev shell!"
-        cargo --version
-        rustc --version
-      '';
     };
   };
 }
