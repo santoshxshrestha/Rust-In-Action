@@ -1,28 +1,30 @@
 {
-  description = "Flake for rust";
+  description = "Flake for Rust";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
   };
 
-  outputs = { self, nixpkgs }: {
-    devShells.x86_64-linux.default = let
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-      };
-    in pkgs.mkShell {
+  outputs = { self, nixpkgs }: let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { inherit system; };
+  in {
+    devShells.${system}.default = pkgs.mkShell {
       buildInputs = with pkgs; [
-      clippy
-      rustfmt
         rustc
-          cargo 
-          rust-analyzer
+        cargo
+        clippy
+        rustfmt
+        rust-analyzer
+        gcc
+        pkg-config
       ];
 
       shellHook = ''
+        echo "🦀 Welcome to the Rust dev shell!"
         cargo --version
-        '';
+        rustc --version
+      '';
     };
-
   };
 }
