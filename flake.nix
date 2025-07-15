@@ -16,8 +16,8 @@
         clippy
         rustfmt
         rust-analyzer
-        gcc
-        pkg-config
+        # gcc
+        # pkg-config
       ];
 
       shellHook = ''
