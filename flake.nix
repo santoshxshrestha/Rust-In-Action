@@ -13,12 +13,15 @@
       buildInputs = with pkgs; [
         rustc
         cargo
-        clippy
+
+        # clippy
         rustfmt
-        rust-analyzer
+        openssl
+        # rust-analyzer
         # gcc
         # pkg-config
       ];
+      RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
     };
   };
 }
