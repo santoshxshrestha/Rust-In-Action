@@ -1,0 +1,6 @@
+[package]
+name = "comp_rep_of_set"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
