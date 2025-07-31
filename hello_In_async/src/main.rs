@@ -16,6 +16,7 @@ async fn say_world() {
 
 #[tokio::main]
 async fn main() {
+    //here we are running them parallelly
     spawn(say_hello());
     spawn(say_world());
     // Wait for a while to give the tasks time to run.
