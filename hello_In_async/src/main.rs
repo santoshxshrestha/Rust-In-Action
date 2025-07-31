@@ -1,20 +1,23 @@
-use std::io::{Write, stdout};
-use tokio::time::{Duration, sleep};
+use tokio::{
+    spawn,
+    time::{Duration, sleep},
+};
 
 async fn say_hello() {
-    print!("hello, ");
-    // Flush stdout so we see the effect of the above `print` immediately.
-    stdout().flush().unwrap();
+    // Wait for a while before printing to make it a more interesting race.
+    sleep(Duration::from_millis(100)).await;
+    println!("hello");
 }
 
 async fn say_world() {
+    sleep(Duration::from_millis(100)).await;
     println!("world!");
 }
 
 #[tokio::main]
 async fn main() {
-    say_hello().await;
-    // An async sleep function, puts the current task to sleep for 1s.
+    spawn(say_hello());
+    spawn(say_world());
+    // Wait for a while to give the tasks time to run.
     sleep(Duration::from_millis(1000)).await;
-    say_world().await;
 }
