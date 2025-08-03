@@ -1,0 +1,18 @@
+pub struct testing {
+    name :String,
+    class: i32,
+
+}
+
+pub impl testing {
+    fn hello() {
+        println!("this is hello func of the testing struct");
+}
+
+fn main() {
+    let test = testing{
+        name: "hello".to_string(),
+        class: 32i32,
+        set_ata,
+    };
+}
