@@ -12,9 +12,15 @@ pub async fn hello_back() {
     println!("Hello santosh from rust");
 }
 
+pub async fn adder(left: i32, right: i32) -> i32 {
+    sleep(Duration::from_secs(1)).await;
+    return left + right;
+}
+
 #[tokio::main]
 async fn main() {
     //this is lazy function as they are needed to be awaited to make them work
-    hello();
-    hello_back().await;
+
+    let sum = adder(2, 3).await;
+    println!("here it goes the sum: {:?}", sum);
 }
