@@ -19,7 +19,7 @@ pub struct Data {
 #[get("path/{id}/{name}/{message}")]
 pub async fn path(path: web::Path<Data>) -> impl Responder {
     HttpResponse::Ok().content_type("text/html").body(format!(
-        "#{}, <br> >{}<br> =>{},",
+        "#{}, <br> >{}<br> ={},",
         path.id, path.name, path.message
     ))
 }
