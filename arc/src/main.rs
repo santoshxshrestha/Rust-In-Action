@@ -23,7 +23,7 @@ fn main() {
             thread::sleep(Duration::from_secs(1));
         }
     }
-    // here i am going to do some muts in the arc
+    // more arc
     {
         let arc = Arc::new(Mutex::new(String::from(
             "this is some heap allocated string",
@@ -37,4 +37,25 @@ fn main() {
         }
     }
     // this session was really brain breaking but finally got it
+
+    // here i am going to do some muts in the arc
+    {
+        let arc = Arc::new(Mutex::new(0));
+        for i in 1..=10 {
+            let clone_of_arc = Arc::clone(&arc);
+            thread::spawn(move || {
+                // here we are locking the mutex and then incrementing the value
+                // inside the mutex
+                match clone_of_arc.lock() {
+                    Ok(mut value) => {
+                        *value += 1;
+                        println!("the value is now {}", value);
+                    }
+                    Err(e) => eprintln!("you got some error {e}"),
+                }
+            });
+            thread::sleep(Duration::from_secs(1));
+        }
+    }
+    // complete brain fck
 }
