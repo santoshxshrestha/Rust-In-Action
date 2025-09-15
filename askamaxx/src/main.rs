@@ -6,11 +6,15 @@ use askama::Template;
 
 #[derive(Template)]
 #[template(path = "index.html")]
-pub struct IndexTemplate;
+pub struct IndexTemplate {
+    pub count: u32,
+}
+static mut VAL: IndexTemplate = IndexTemplate { count: 0 };
 
 #[get("/")]
 pub async fn hello() -> impl Responder {
-    let template = IndexTemplate;
+    let template = unsafe {static &mut VAL };
+    template.count += 1;
     HttpResponse::Ok()
         .content_type("text/html")
         .body(template.render().unwrap())
