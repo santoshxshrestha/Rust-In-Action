@@ -1,4 +1,3 @@
-#![allow(unused)]
 use actix_web::App;
 use actix_web::Responder;
 use actix_web::get;
@@ -13,7 +12,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 #[template(path = "index.html")]
 pub struct IndexTemplate;
 
-#[get("/count")]
+#[post("/count")]
 pub async fn count(count: web::Data<Arc<AtomicUsize>>) -> impl Responder {
     let current_count = count.fetch_add(1, Ordering::AcqRel);
     HttpResponse::Ok().body(format!("count: {}", current_count))

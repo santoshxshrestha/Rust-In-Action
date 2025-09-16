@@ -1,21 +1,21 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>rust</title>
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.7/dist/htmx.min.js"></script>
-</head>
+  </head>
 
-<body style="background-color:">
+  <body style="background-color:">
     <h1>Welcome to the Rust Page</h1>
     <p>This is a simple HTML page served by Rust.</p>
     <div>
-        <p>the value of the count is :</p>
-        <p class="count">here will go the count </p>
+      <p>the value of the count is :</p>
+      <p class="count">here will go the count</p>
     </div>
-    <button hx-get="/count" hx-target=".count" hx-swap="innerHTML">Increment Count</button>
-</body>
-
+    <button hx-post="/count" hx-target=".count">
+      Increment Count
+    </button>
+  </body>
 </html>
