@@ -1,3 +1,4 @@
+#![allow(unused)]
 use actix_web::App;
 use actix_web::Responder;
 use actix_web::get;
@@ -26,18 +27,48 @@ pub async fn hello() -> impl Responder {
         .body(template.render().unwrap())
 }
 
+pub struct ContactInfo {
+    name: String,
+    email: String,
+}
+
+#[derive(Template)]
+#[template(path = "contacts.html")]
+pub struct ContactsTemplate {
+    contacts: Vec<ContactInfo>,
+}
+
+#[get("/contacts")]
+pub async fn contacts() -> impl Responder {
+    let template = ContactsTemplate {
+        contacts: vec![
+            ContactInfo {
+                name: "Alice".to_string(),
+                email: "fukcer@gmail.com".to_string(),
+            },
+            ContactInfo {
+                name: "Bob".to_string(),
+                email: "anotherfucker@gmail.com".to_string(),
+            },
+        ],
+    };
+    HttpResponse::Ok()
+        .content_type("text/html")
+        .body(template.render().unwrap())
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let num = Arc::new(AtomicUsize::new(0));
+    // let contact_details: Vec<ContactInfo> = Vec::new();
     let nums = Arc::new(32);
     println!("Starting server at http://localhost:8080");
     let clone_count = num.clone();
-    let cloen_of_nums = nums.clone();
     HttpServer::new(move || {
         App::new()
             .service(hello)
             .service(count)
-            .app_data(web::Data::new(cloen_of_nums.clone()))
+            .service(contacts)
             .app_data(web::Data::new(clone_count.clone()))
     })
     .bind("127.0.0.1:8080")?

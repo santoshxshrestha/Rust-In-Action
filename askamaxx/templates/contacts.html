@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rust</title>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.7/dist/htmx.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body style="background-color:">
+    <div class="flex flex-col p-6 bg-white m-6 rounded-lg shadow-lg border border-gray-200">
+        <form action="" hx-post="/contacts" class="space-y-4">
+            <label class="block text-gray-700 font-medium">
+                Name:
+                <input type="text" name="name"
+                    class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            </label>
+
+            <label class="block text-gray-700 font-medium">
+                Email:
+                <input type="email" name="email"
+                    class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            </label>
+
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                Create
+            </button>
+        </form>
+    </div>
+    <hr class="my-6 border-gray-300" />
+    <p class="text-gray-600 text-center font-medium">
+        This is the display section for the form data:
+    </p>
+
+    <div class="flex flex-col p-6 bg-white m-6 rounded-lg shadow-lg border border-gray-200">
+        {{% for contact in contacts %}}
+        <p class="text-gray-700 font-medium">
+            Name: <span class="font-normal"> {{% contact.name %}}</span>
+        </p>
+        <p class="text-gray-700 font-medium mt-2">
+            Email: <span class="font-normal"> {{% contact.email %}}</span>
+        </p>
+        {{% endfor %}}
+    </div>
+</body>
+
+</html>
