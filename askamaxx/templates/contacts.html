@@ -4,45 +4,30 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>rust</title>
+    <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.7/dist/htmx.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body style="background-color:">
-    <div class="flex flex-col p-6 bg-white m-6 rounded-lg shadow-lg border border-gray-200">
-        <form action="" hx-post="/contacts" class="space-y-4">
-            <label class="block text-gray-700 font-medium">
-                Name:
-                <input type="text" name="name"
-                    class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
-            </label>
+<body>
+    <h1>Contact Page</h1>
+    <form action="/contacts" method="post">
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name" required />
 
-            <label class="block text-gray-700 font-medium">
-                Email:
-                <input type="email" name="email"
-                    class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
-            </label>
-
-            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
-                Create
-            </button>
-        </form>
-    </div>
-    <hr class="my-6 border-gray-300" />
-    <p class="text-gray-600 text-center font-medium">
-        This is the display section for the form data:
-    </p>
-
-    <div class="flex flex-col p-6 bg-white m-6 rounded-lg shadow-lg border border-gray-200">
-        {{% for contact in contacts %}}
-        <p class="text-gray-700 font-medium">
-            Name: <span class="font-normal"> {{% contact.name %}}</span>
-        </p>
-        <p class="text-gray-700 font-medium mt-2">
-            Email: <span class="font-normal"> {{% contact.email %}}</span>
-        </p>
-        {{% endfor %}}
+        <label for="email">email: </label>
+        <input type="email" id="email" name="email" required />
+        <button type="submit">Submit</button>
+    </form>
+    <p>here are the list of the contacts</p>
+    <div id="contacts-list" class="flex-col gap-4 border-2 border-black border p-4">
+        {% for contact in contacts %}
+        <div class="flex-col gap-4 border-2 border-black border p-4">
+            <span>Name:{{ contact.name }}</span>
+            <br />
+            <span> email: {{ contact.email }}</span>
+        </div>
+        {% endfor %}
     </div>
 </body>
 
