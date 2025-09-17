@@ -2,6 +2,7 @@
 use actix_web::App;
 use actix_web::Responder;
 use actix_web::get;
+use actix_web::http::StatusCode;
 use actix_web::post;
 use actix_web::web;
 use actix_web::web::Form;
@@ -72,10 +73,14 @@ pub async fn add_contact(
     form: Form<ContactInfo>,
 ) -> impl Responder {
     let mut details = details.lock().unwrap();
-    details.push(ContactInfo::new(&form.name, &form.email));
-    HttpResponse::SeeOther()
-        .append_header(("Location", "/contacts"))
-        .finish()
+    if details.iter().any(|c| c.email == form.email) {
+        return HttpResponse::BadRequest().body("Email already exists");
+    } else {
+        details.push(ContactInfo::new(&form.name, &form.email));
+        HttpResponse::SeeOther()
+            .append_header(("Location", "/contacts"))
+            .finish()
+    }
 }
 
 #[actix_web::main]
