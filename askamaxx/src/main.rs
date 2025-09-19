@@ -83,6 +83,24 @@ pub async fn add_contact(
     }
 }
 
+#[derive(Template)]
+#[template(path = "hello.html")]
+pub struct Hello {
+    pub name: String,
+    pub message: String,
+}
+
+#[get("/hello_again")]
+pub async fn hello_again() -> impl Responder {
+    let template = Hello {
+        name: String::from("santosh"),
+        message: String::from("hello there what are you doing out there"),
+    };
+    HttpResponse::Ok()
+        .content_type("text/html")
+        .body(template.render().unwrap())
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let num = Arc::new(AtomicUsize::new(0));
@@ -98,6 +116,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .service(hello)
+            .service(hello_again)
             .service(count)
             .service(contacts)
             .service(add_contact)
