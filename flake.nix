@@ -13,6 +13,7 @@
           nodejs
           rustc
           cargo
+	  cargo-watch
 
           # clippy
           rustfmt
@@ -21,7 +22,8 @@
           # gcc
           # pkg-config
         ];
-        RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+        env.RUST_SRC_PATH =
+          "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
       };
     };
 }
