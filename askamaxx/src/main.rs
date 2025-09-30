@@ -1,14 +1,12 @@
-#![allow(unused)]
 use actix_web::App;
 use actix_web::Responder;
 use actix_web::get;
-use actix_web::http::StatusCode;
 use actix_web::post;
 use actix_web::web;
 use actix_web::web::Form;
 use actix_web::{self, HttpResponse, HttpServer};
 use askama::Template;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use std::sync::Arc;
 use std::sync::Mutex;
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -99,6 +97,34 @@ pub async fn hello_again() -> impl Responder {
     HttpResponse::Ok()
         .content_type("text/html")
         .body(template.render().unwrap())
+}
+
+#[derive(Template)]
+#[template(path = "loop.html")]
+pub struct Loop {
+    pub count: i32,
+}
+
+impl Loop {
+    pub fn new(initializer: i32) -> Self{
+        Self{
+            count: initializer
+        }
+    }
+}
+
+#[get("/loop")]
+pub async fn loop() -> impl Responder {
+    let mut number = 0;
+    for i in 1..100{
+        number = i;
+    let template = Loop::new(number);
+    return HttpResponse::Ok()
+        .content_type("text/html")
+        .body(template.render().unwrap());
+
+    };
+    HttpResponse::Ok().body("string is all it takes".to_string())
 }
 
 #[actix_web::main]
