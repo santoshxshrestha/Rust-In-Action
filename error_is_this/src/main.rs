@@ -1,4 +1,20 @@
+use std::fs::read_to_string;
+
 use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub enum ReadError {
+    #[error("There is no such file: {0}")]
+    NoFile(#[from] std::io::Error),
+
+    #[error("You dont have permission to read that file")]
+    NoPermission,
+}
+
+fn read(name: &str) -> Result<String, ReadError> {
+    let content = read_to_string(name)?;
+    return Ok(content);
+}
 
 #[derive(Error, Debug)]
 pub enum Errors {
@@ -38,5 +54,15 @@ fn main() {
     match greet(&hair) {
         Ok(message) => println!("message: {}", message),
         Err(e) => eprintln!("message: {}", e),
+    }
+
+    let file = "yup.md";
+
+    println!(
+        "-------------------------------------------------------------------------------------"
+    );
+    match read(file) {
+        Ok(content) => println!("the content of the file is {}", content),
+        Err(e) => eprintln!("you got error:{} ", e),
     }
 }
