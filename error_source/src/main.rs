@@ -1,46 +1,39 @@
+use core::fmt;
+use std::{error::Error, fs};
+
 use thiserror::Error;
 
-#[derive(Error, Debug)]
+#[derive(Debug, Error)]
 pub enum AgeError {
-    #[error("your age is less then zero")]
+    #[error("you age is :{0} which is less then zero \n it is not possible")]
     LessThenZero(String),
 
-    #[error("you are just born")]
-    EqualToZero(String),
-
-    #[error("this is the custom error that you are getting")]
-    CustomError {
-        #[source]
-        source: Box<dyn std::error::Error + 'static>,
-        description: String,
-    },
+    #[error("there is no such file out there")]
+    NoFile(NoSuchFile),
 }
 
-pub struct Age {
-    age: i32,
-}
-pub struct Class{
-    main: String,
-    func: String,
-
+#[derive(Debug, Error)]
+pub struct NoSuchFile {
+    #[source]
+    source: std::io::Error,
 }
 
-
-fn check_errors(age: Age) -> Result<String, AgeError> {
-    if age.age < 0 {
-        return Err(AgeError::LessThenZero(
-            "your age is in negative".to_string(),
-        ));
-    } else if age.age == 0 {
-        return Err(AgeError::EqualToZero("welcome to the earth".to_string()));
-    } else if age.age > 0 {
-        return Ok(format!("you got the following error{}", age.age));
-    } else {
-        Err(AgeError::CustomError {
-            source
-            description: "the error you just got is called custom error".to_string(),
-        })
+impl fmt::Display for NoSuchFile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "No such file {}", self.source)
     }
 }
 
-fn main() {}
+pub fn read_content(name: &str) -> Result<String, AgeError> {
+    match fs::read_to_string(name) {
+        Ok(content) => Ok(format!("the age is {}", content)),
+        Err(e) => Err(AgeError::NoFile(NoSuchFile { source: e })),
+    }
+}
+
+fn main() {
+    let name = "santosh.txt";
+    if let Err(e) = read_content(name) {
+        eprint!("you got error :{:?}", e.source())
+    }
+}
