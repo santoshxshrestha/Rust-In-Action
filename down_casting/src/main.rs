@@ -1,3 +1,4 @@
+// Downcasting lets you access methods not present in the trait (Shapes), as long as you implement as_any returning &dyn Any for each struct implementing the trait.
 #![allow(unused)]
 use std::any::Any;
 use std::boxed::Box;
@@ -16,7 +17,7 @@ impl Circle {
     fn new(radius: f64) -> Self {
         Self { radius: radius }
     }
-    fn circumference(&self) -> f6 {
+    fn circumference(&self) -> f64 {
         2.0 * std::f64::consts::PI * self.radius
     }
     fn message(&self) -> String {
@@ -118,7 +119,34 @@ pub fn with_out_downcasting() {
         println!("The area of the object is {:.2}", object.area());
     }
 }
+pub fn downcasting() {
+    let trait_objects: Vec<Box<dyn Shapes>> = vec![
+        Box::new(Circle::new(23.2)),
+        Box::new(Square::new(32.32)),
+        Box::new(Rectangle::new(344.13, 43.21)),
+    ];
+
+    for obj in trait_objects.iter() {
+        if let Some(circle) = obj.as_any().downcast_ref::<Circle>() {
+            println!(
+                "It is a circle with circumference {:.2}",
+                circle.circumference()
+            )
+        } else if let Some(square) = obj.as_any().downcast_ref::<Square>() {
+            println!(
+                "It is a square with the perimeter {:.2}",
+                square.perimeter()
+            )
+        } else if let Some(rectangle) = obj.as_any().downcast_ref::<Rectangle>() {
+            println!(
+                "It is a rectangle with the perimeter {:.2}",
+                rectangle.perimeter()
+            )
+        }
+    }
+}
 
 fn main() {
     with_out_downcasting();
+    downcasting();
 }
