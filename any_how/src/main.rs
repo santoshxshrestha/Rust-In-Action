@@ -33,9 +33,7 @@ fn main() {
                 if let Some(mero_error) = e.downcast_ref::<MeroError>() {
                     match mero_error {
                         MeroError::NotFound(message) => println!("Not Found: {}", message),
-                        MeroError::PermissionError(message) => {
-                            println!("Permission Error: {}", message)
-                        }
+                        MeroError::PermissionError(message) => println!("Permission Error: {}", message),
                     }
                 } else {
                     println!("Unknown Error: {:?}", e);
