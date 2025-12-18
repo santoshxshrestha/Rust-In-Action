@@ -60,11 +60,19 @@ impl App {
     }
 
     fn increment_counter(&mut self) {
-        self.counter += 1;
+        if self.counter == 255 {
+            return;
+        } else {
+            self.counter += 1;
+        }
     }
 
     fn decrement_counter(&mut self) {
-        self.counter -= 1;
+        if self.counter == 0 {
+            return;
+        } else {
+            self.counter -= 1;
+        }
     }
 }
 
