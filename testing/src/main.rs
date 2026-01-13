@@ -1,36 +1,11 @@
-use std::{any::type_name_of_val, process::Output};
+use std::usize;
 
-fn add<T>(a: T, b: T) -> T
-where
-    T: std::ops::Add<Output = T>,
-{
-    return a + b;
+fn change_value(x: i32, y: &mut Vec<i32>, index: usize) {
+    y[index] = x;
 }
 
-pub trait MeroTrait {
-    fn use_this(&self) -> String;
+fn main() {
+    let value = 12;
+    let mut vec = vec![1, 2, 3, 4, 5, value];
+    change_value(242, &mut vec, 8 as usize);
 }
-
-impl MeroTrait for i32 {
-    fn use_this(&self) -> String {
-        return format!("i32: {}", self);
-    }
-}
-impl MeroTrait for String {
-    fn use_this(&self) -> String {
-        return format!("String: {}", self);
-    }
-}
-impl MeroTrait for i64 {
-    fn use_this(&self) -> String {
-        return format!("i64: {}", self);
-    }
-}
-
-fn do_some_thing<T>(content: T) -> String
-where
-    T: MeroTrait<Output = String>,
-{
-    return type_name_of_val(&content).to_string();
-}
-fn main() {}
