@@ -1,11 +1,18 @@
-use std::usize;
+struct Counter<'a> {
+    counter: &'a mut i32,
+}
 
-fn change_value(x: i32, y: &mut Vec<i32>, index: usize) {
-    y[index] = x;
+impl Counter<'_> {
+    fn increment(&mut self) {
+        *self.counter += 1;
+    }
 }
 
 fn main() {
-    let value = 12;
-    let mut vec = vec![1, 2, 3, 4, 5, value];
-    change_value(242, &mut vec, 8 as usize);
+    let mut num = 0;
+
+    let mut counter = Counter { counter: &mut num };
+    counter.increment();
+
+    println!("{num}"); // prints 1
 }
